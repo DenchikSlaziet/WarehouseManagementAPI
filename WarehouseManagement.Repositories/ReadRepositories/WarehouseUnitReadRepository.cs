@@ -1,0 +1,59 @@
+﻿using Microsoft.EntityFrameworkCore;
+using WarehouseManagement.Common.Entity.InterfaceToWorkDB;
+using WarehouseManagement.Context.Contracts.Models;
+using WarehouseManagement.General;
+using WarehouseManagement.Repositories.Contracts.Anchors;
+using WarehouseManagement.Repositories.Contracts.ReadRepositories;
+
+namespace WarehouseManagement.Repositories.ReadRepositories
+{
+    /// <summary>
+    /// Реализация <<see cref="IWarehouseUnitReadRepository"/>
+    /// </summary>
+    public class WarehouseUnitReadRepository : IWarehouseUnitReadRepository, IRepositoryAnchor
+    {
+        /// <summary>
+        /// Контекст для работы с бд
+        /// </summary>
+        private readonly IDbRead reader;
+
+        public WarehouseUnitReadRepository(IDbRead reader)
+        {
+            this.reader = reader;
+        }
+
+        Task<IReadOnlyCollection<WarehouseUnit>> IWarehouseUnitReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => reader.Read<WarehouseUnit>()
+            .NotDeletedAt()
+            .OrderBy(x => x.Price)
+            .ToReadOnlyCollectionAsync(cancellationToken);
+
+        Task<WarehouseUnit?> IWarehouseUnitReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<WarehouseUnit>()
+            .NotDeletedAt()
+            .ById(id)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+        Task<Dictionary<Guid, WarehouseUnit>> IWarehouseUnitReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => reader.Read<WarehouseUnit>()
+            .NotDeletedAt()
+            .ByIds(ids)
+            .ToDictionaryAsync(x => x.Id, cancellationToken);
+
+        Task<IReadOnlyCollection<WarehouseUnit>> IWarehouseUnitReadRepository.GetByWarehouseId(Guid id, CancellationToken cancellationToken)
+            => reader.Read<WarehouseUnit>()
+            .NotDeletedAt()
+            .Where(x => x.WarehouseWarehouseUnits.Any(x => x.WarehouseId == id))
+            .ToReadOnlyCollectionAsync(cancellationToken);
+
+        Task<IReadOnlyCollection<WarehouseWarehouseUnit>> IWarehouseUnitReadRepository.GetDependenceEntityByWarehouseUnitId(Guid id, CancellationToken cancellationToken)
+            => reader.Read<WarehouseWarehouseUnit>()
+            .Where(x => x.WarehouseUnitId == id)
+            .ToReadOnlyCollectionAsync(cancellationToken);
+
+        Task<bool> IWarehouseUnitReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<WarehouseUnit>()
+            .NotDeletedAt()
+            .AnyAsync(x => x.Id == id, cancellationToken);
+    }
+}

@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Common.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.General", "WarehouseManagement.General\WarehouseManagement.General.csproj", "{AA577CB4-DD5E-4B02-A64F-EBCC47BF35A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Repositories.Contracts", "WarehouseManagement.Repositories.Contracts\WarehouseManagement.Repositories.Contracts.csproj", "{C030F58D-1135-4627-927A-2038A17EBF1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Repositories", "WarehouseManagement.Repositories\WarehouseManagement.Repositories.csproj", "{AAB3A72E-53E9-4829-BDF4-890EB8B90974}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{AA577CB4-DD5E-4B02-A64F-EBCC47BF35A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA577CB4-DD5E-4B02-A64F-EBCC47BF35A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA577CB4-DD5E-4B02-A64F-EBCC47BF35A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C030F58D-1135-4627-927A-2038A17EBF1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C030F58D-1135-4627-927A-2038A17EBF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C030F58D-1135-4627-927A-2038A17EBF1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C030F58D-1135-4627-927A-2038A17EBF1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB3A72E-53E9-4829-BDF4-890EB8B90974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB3A72E-53E9-4829-BDF4-890EB8B90974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB3A72E-53E9-4829-BDF4-890EB8B90974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB3A72E-53E9-4829-BDF4-890EB8B90974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
