@@ -1,9 +1,11 @@
-﻿namespace WarehouseManagement.Context.Contracts.Models
+﻿using WarehouseManagement.Common.Entity.EntityInterface;
+
+namespace WarehouseManagement.Context.Contracts.Models
 {
     /// <summary>
     /// Промежуточная таблица для склада и единиц складского учета
     /// </summary>
-    public class WarehouseWarehouseUnit
+    public class WarehouseWarehouseUnit : IEntity
     {
         /// <summary>
         /// Идентификатор склада

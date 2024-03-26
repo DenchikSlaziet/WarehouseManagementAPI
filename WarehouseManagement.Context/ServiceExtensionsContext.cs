@@ -5,7 +5,7 @@ using WarehouseManagement.Context.Contracts;
 
 namespace WarehouseManagement.Context
 {
-    // <summary>
+    /// <summary>
     /// Расширения для <see cref="IServiceCollection"/>
     /// </summary>
     public static class ServiceExtensionsContext
