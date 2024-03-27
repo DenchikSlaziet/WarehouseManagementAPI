@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Context
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Test.Extensions", "WarehouseManagement.Test.Extensions\WarehouseManagement.Test.Extensions.csproj", "{25DA6447-7809-4250-8949-239F4804E11A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Services.Contracts", "WarehouseManagement.Service.Contracts\WarehouseManagement.Services.Contracts.csproj", "{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{25DA6447-7809-4250-8949-239F4804E11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25DA6447-7809-4250-8949-239F4804E11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25DA6447-7809-4250-8949-239F4804E11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
