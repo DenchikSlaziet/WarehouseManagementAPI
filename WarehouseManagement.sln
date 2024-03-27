@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Test.Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Services.Contracts", "WarehouseManagement.Service.Contracts\WarehouseManagement.Services.Contracts.csproj", "{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Services", "WarehouseManagement.Services\WarehouseManagement.Services.csproj", "{92E75E3A-5A41-4417-A158-6974232D45EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92E75E3A-5A41-4417-A158-6974232D45EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E75E3A-5A41-4417-A158-6974232D45EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E75E3A-5A41-4417-A158-6974232D45EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E75E3A-5A41-4417-A158-6974232D45EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
