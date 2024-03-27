@@ -13,6 +13,11 @@
         public Product Product { get; set; }
 
         /// <summary>
+        /// Единица измерения
+        /// </summary>
+        public string Unit { get; set; } = string.Empty;
+
+        /// <summary>
         /// Кол-во товара
         /// </summary>
         public int Count { get; set; }

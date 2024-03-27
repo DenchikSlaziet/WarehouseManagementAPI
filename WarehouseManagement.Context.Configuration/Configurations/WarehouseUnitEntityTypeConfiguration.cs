@@ -15,6 +15,7 @@ namespace WarehouseManagement.Context.Configuration.Configurations
             builder.PropertyAuditConfiguration();
             builder.Property(x => x.ProductId).IsRequired();
             builder.Property(x => x.Count).IsRequired();
+            builder.Property(x => x.Unit).HasMaxLength(20).IsRequired();
             builder.Property(x => x.Price).IsRequired();
         }
     }

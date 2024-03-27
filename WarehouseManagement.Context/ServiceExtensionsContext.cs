@@ -15,10 +15,10 @@ namespace WarehouseManagement.Context
         /// </summary>
         public static void RegistrationContext(this IServiceCollection service)
         {
-            service.TryAddScoped<IWarehouseManagementContext>(provider => provider.GetRequiredService<WarehouseManagmentContext>());
-            service.TryAddScoped<IDbRead>(provider => provider.GetRequiredService<WarehouseManagmentContext>());
-            service.TryAddScoped<IDbWriter>(provider => provider.GetRequiredService<WarehouseManagmentContext>());
-            service.TryAddScoped<IUnitOfWork>(provider => provider.GetRequiredService<WarehouseManagmentContext>());
+            service.TryAddScoped<IWarehouseManagementContext>(provider => provider.GetRequiredService<WarehouseManagementContext>());
+            service.TryAddScoped<IDbRead>(provider => provider.GetRequiredService<WarehouseManagementContext>());
+            service.TryAddScoped<IDbWriter>(provider => provider.GetRequiredService<WarehouseManagementContext>());
+            service.TryAddScoped<IUnitOfWork>(provider => provider.GetRequiredService<WarehouseManagementContext>());
         }
     }
 }

@@ -6,7 +6,7 @@ using WarehouseManagement.Context.Contracts.Models;
 
 namespace WarehouseManagement.Context
 {
-    public class WarehouseManagmentContext : DbContext,
+    public class WarehouseManagementContext : DbContext,
         IWarehouseManagementContext,
         IDbRead,
         IDbWriter,
@@ -17,7 +17,7 @@ namespace WarehouseManagement.Context
         public DbSet<WarehouseUnit> WarehouseUnits { get; set; }
         public DbSet<WarehouseWarehouseUnit> WarehouseWarehouseUnits { get; set; }
 
-        public WarehouseManagmentContext(DbContextOptions<WarehouseManagmentContext> options): base(options)
+        public WarehouseManagementContext(DbContextOptions<WarehouseManagementContext> options): base(options)
         {
                 
         }
