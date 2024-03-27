@@ -3,19 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Context.Contracts", "WarehouseManagement.Context.Contracts\WarehouseManagement.Context.Contracts.csproj", "{E96C4B2A-1691-412E-AE9F-5C1E739BE5A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Context.Contracts", "WarehouseManagement.Context.Contracts\WarehouseManagement.Context.Contracts.csproj", "{E96C4B2A-1691-412E-AE9F-5C1E739BE5A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Context", "WarehouseManagement.Context\WarehouseManagement.Context.csproj", "{E36FA792-F6E0-4FB6-BBAF-56D9A47AFDEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Context", "WarehouseManagement.Context\WarehouseManagement.Context.csproj", "{E36FA792-F6E0-4FB6-BBAF-56D9A47AFDEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Context.Configuration", "WarehouseManagement.Context.Configuration\WarehouseManagement.Context.Configuration.csproj", "{2C45C473-656A-412E-9810-7DC829C3B452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Context.Configuration", "WarehouseManagement.Context.Configuration\WarehouseManagement.Context.Configuration.csproj", "{2C45C473-656A-412E-9810-7DC829C3B452}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Common.Entity", "WarehouseManagement.Common.Entity\WarehouseManagement.Common.Entity.csproj", "{B96D7E56-FEB2-4C8A-AF60-5F11B77ECBB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Common.Entity", "WarehouseManagement.Common.Entity\WarehouseManagement.Common.Entity.csproj", "{B96D7E56-FEB2-4C8A-AF60-5F11B77ECBB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.General", "WarehouseManagement.General\WarehouseManagement.General.csproj", "{AA577CB4-DD5E-4B02-A64F-EBCC47BF35A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.General", "WarehouseManagement.General\WarehouseManagement.General.csproj", "{AA577CB4-DD5E-4B02-A64F-EBCC47BF35A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Repositories.Contracts", "WarehouseManagement.Repositories.Contracts\WarehouseManagement.Repositories.Contracts.csproj", "{C030F58D-1135-4627-927A-2038A17EBF1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Repositories.Contracts", "WarehouseManagement.Repositories.Contracts\WarehouseManagement.Repositories.Contracts.csproj", "{C030F58D-1135-4627-927A-2038A17EBF1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Repositories", "WarehouseManagement.Repositories\WarehouseManagement.Repositories.csproj", "{AAB3A72E-53E9-4829-BDF4-890EB8B90974}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Repositories", "WarehouseManagement.Repositories\WarehouseManagement.Repositories.csproj", "{AAB3A72E-53E9-4829-BDF4-890EB8B90974}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Repositories.Tests", "WarehouseManagement.Repositories.Tests\WarehouseManagement.Repositories.Tests.csproj", "{41EDDE59-E545-4F48-A444-A158EEB1FD05}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Context.Tests", "WarehouseManagement.Context.Tests\WarehouseManagement.Context.Tests.csproj", "{392E52BA-22D4-4CD1-AD3E-64B5D95CCBC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Test.Extensions", "WarehouseManagement.Test.Extensions\WarehouseManagement.Test.Extensions.csproj", "{25DA6447-7809-4250-8949-239F4804E11A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +57,18 @@ Global
 		{AAB3A72E-53E9-4829-BDF4-890EB8B90974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAB3A72E-53E9-4829-BDF4-890EB8B90974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAB3A72E-53E9-4829-BDF4-890EB8B90974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41EDDE59-E545-4F48-A444-A158EEB1FD05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41EDDE59-E545-4F48-A444-A158EEB1FD05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41EDDE59-E545-4F48-A444-A158EEB1FD05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41EDDE59-E545-4F48-A444-A158EEB1FD05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{392E52BA-22D4-4CD1-AD3E-64B5D95CCBC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{392E52BA-22D4-4CD1-AD3E-64B5D95CCBC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{392E52BA-22D4-4CD1-AD3E-64B5D95CCBC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{392E52BA-22D4-4CD1-AD3E-64B5D95CCBC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25DA6447-7809-4250-8949-239F4804E11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25DA6447-7809-4250-8949-239F4804E11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25DA6447-7809-4250-8949-239F4804E11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25DA6447-7809-4250-8949-239F4804E11A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

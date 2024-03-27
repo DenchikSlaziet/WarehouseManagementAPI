@@ -7,9 +7,9 @@ namespace WarehouseManagement.Context
     /// <summary>
     /// Фабрика для создания контекста в DesignTime (Миграции)
     /// </summary>
-    public class SampleContextFactory : IDesignTimeDbContextFactory<WarehouseManagmentContext>
+    public class SampleContextFactory : IDesignTimeDbContextFactory<WarehouseManagementContext>
     {
-        public WarehouseManagmentContext CreateDbContext(string[] args)
+        public WarehouseManagementContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -17,11 +17,11 @@ namespace WarehouseManagement.Context
                 .Build();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            var options = new DbContextOptionsBuilder<WarehouseManagmentContext>()
+            var options = new DbContextOptionsBuilder<WarehouseManagementContext>()
                 .UseSqlServer(connectionString)
                 .Options;
 
-            return new WarehouseManagmentContext(options);
+            return new WarehouseManagementContext(options);
         }
     }
 }
