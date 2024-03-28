@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System.ComponentModel.DataAnnotations;
 using WarehouseManagement.General;
 using WarehouseManagement.Repositories.Contracts.ReadRepositories;
 using WarehouseManagement.Services.Contracts.Contracts;
@@ -10,14 +9,15 @@ using WarehouseManagement.Services.Validators;
 
 namespace WarehouseManagement.Services.Services
 {
-    internal sealed class ValidatorService : IServiceValidatorService
+    internal sealed class ValidatorService : IServiceValidator
     {
         private readonly Dictionary<Type, IValidator> validators = new Dictionary<Type, IValidator>();
 
-        public ValidatorService(IProductReadRepository productReadRepository)
+        public ValidatorService(IProductReadRepository productReadRepository, 
+            IWarehouseUnitReadRepository warehouseUnitReadRepository)
         {
             validators.Add(typeof(ProductModel), new ProductModelValidator());
-            validators.Add(typeof(WarehouseModel), new WarehouseModelValidator());
+            validators.Add(typeof(WarehouseModel), new WarehouseRequestModelValidator(warehouseUnitReadRepository));
             validators.Add(typeof(WarehouseUnitModelRequest), new WarehouseUnitRequestModelValidator(productReadRepository));           
         }
 

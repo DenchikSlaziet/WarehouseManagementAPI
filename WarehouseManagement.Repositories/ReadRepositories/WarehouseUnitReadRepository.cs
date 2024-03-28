@@ -40,10 +40,10 @@ namespace WarehouseManagement.Repositories.ReadRepositories
             .ByIds(ids)
             .ToDictionaryAsync(x => x.Id, cancellationToken);
 
-        Task<IReadOnlyCollection<WarehouseUnit>> IWarehouseUnitReadRepository.GetByWarehouseId(Guid id, CancellationToken cancellationToken)
-            => reader.Read<WarehouseUnit>()
+        Task<IReadOnlyCollection<Warehouse>> IWarehouseUnitReadRepository.GetWarehouseByWarehouseUnitId(Guid id, CancellationToken cancellationToken)
+            => reader.Read<Warehouse>()
             .NotDeletedAt()
-            .Where(x => x.WarehouseWarehouseUnits.Any(x => x.WarehouseId == id))
+            .Where(x => x.WarehouseWarehouseUnits.Any(x => x.WarehouseUnitId == id))
             .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<IReadOnlyCollection<WarehouseWarehouseUnit>> IWarehouseUnitReadRepository.GetDependenceEntityByWarehouseUnitId(Guid id, CancellationToken cancellationToken)

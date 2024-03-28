@@ -1,4 +1,5 @@
 ﻿using WarehouseManagement.Services.Contracts.Models;
+using WarehouseManagement.Services.Contracts.ModelsRequest;
 
 namespace WarehouseManagement.Services.Contracts.Contracts
 {
@@ -20,12 +21,12 @@ namespace WarehouseManagement.Services.Contracts.Contracts
         /// <summary>
         /// Добавляет новый <see cref="Warehouse"/>
         /// </summary>
-        Task<WarehouseModel> AddAsync(WarehouseModel model, CancellationToken cancellationToken);
+        Task<WarehouseModel> AddAsync(WarehouseModelRequest modelRequest, CancellationToken cancellationToken);
 
         /// <summary>
         /// Редактирует существующий <see cref="Warehouse"/>
         /// </summary>
-        Task<WarehouseModel> EditAsync(WarehouseModel model, CancellationToken cancellationToken);
+        Task<WarehouseModel> EditAsync(WarehouseModelRequest modelRequest, CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаляет существующий <see cref="Warehouse"/>

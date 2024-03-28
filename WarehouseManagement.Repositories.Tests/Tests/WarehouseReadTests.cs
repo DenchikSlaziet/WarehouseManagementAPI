@@ -191,18 +191,18 @@ namespace WarehouseManagement.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Поиск складов по идентификатору единицы складского учета (empty)
+        /// Поиск SKU по идентификатору склада (empty)
         /// </summary>
         [Fact]
-        public async Task GetByWarehouseUnitIdReturnEmpty()
+        public async Task GetWarehouseUnitByWarehouseIdReturnEmpty()
         {
             //Arrange
-            var target1 = TestDataGenerator.WarehouseUnit();
-            await Context.WarehouseUnits.AddAsync(target1);
+            var target1 = TestDataGenerator.Warehouse();
+            await Context.Warehouses.AddAsync(target1);
             await Context.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await warehouseReadRepository.GetByWarehouseUnitId(target1.Id, CancellationToken);
+            var result = await warehouseReadRepository.GetWarehouseUnitByWarehouseId(target1.Id, CancellationToken);
 
             // Assert
             result.Should()
@@ -211,10 +211,10 @@ namespace WarehouseManagement.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Поиск складов по идентификатору единицы складского учета
+        /// Поиск SKU по идентификатору склада
         /// </summary>
         [Fact]
-        public async Task GetByWarehouseUnitIdReturnValues()
+        public async Task GetWarehouseUnitByWarehouseIdReturnValues()
         {
             //Arrange
             var warehouseUnit1 = TestDataGenerator.WarehouseUnit();
@@ -239,13 +239,13 @@ namespace WarehouseManagement.Repositories.Tests.Tests
             await Context.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await warehouseReadRepository.GetByWarehouseUnitId(warehouseUnit1.Id, CancellationToken);
+            var result = await warehouseReadRepository.GetWarehouseUnitByWarehouseId(warehouse1.Id, CancellationToken);
 
             // Assert
             result.Should()
                 .NotBeNull()
                 .And.HaveCount(1)
-                .And.ContainSingle(x => x.Id == warehouse1.Id);
+                .And.ContainSingle(x => x.Id == warehouseUnit1.Id);
         }
 
         /// <summary>

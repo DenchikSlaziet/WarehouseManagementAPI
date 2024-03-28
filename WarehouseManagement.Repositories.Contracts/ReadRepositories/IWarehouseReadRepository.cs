@@ -28,9 +28,9 @@ namespace WarehouseManagement.Repositories.Contracts.ReadRepositories
         Task<bool> IsNotNullAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить все <see cref="Warehouse"/> по идентификатору <see cref="WarehouseUnit"/>
+        /// Получить все <see cref="WarehouseUnit"/> по идентификатору <see cref="Warehouse"/>
         /// </summary>
-        Task<IReadOnlyCollection<Warehouse>> GetByWarehouseUnitId(Guid id, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<WarehouseUnit>> GetWarehouseUnitByWarehouseId(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все <see cref="WarehouseWarehouseUnit"/> по идентификатору <see cref="Warehouse"/>

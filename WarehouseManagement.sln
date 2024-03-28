@@ -21,11 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Reposit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Context.Tests", "WarehouseManagement.Context.Tests\WarehouseManagement.Context.Tests.csproj", "{392E52BA-22D4-4CD1-AD3E-64B5D95CCBC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Test.Extensions", "WarehouseManagement.Test.Extensions\WarehouseManagement.Test.Extensions.csproj", "{25DA6447-7809-4250-8949-239F4804E11A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Test.Extensions", "WarehouseManagement.Test.Extensions\WarehouseManagement.Test.Extensions.csproj", "{25DA6447-7809-4250-8949-239F4804E11A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Services.Contracts", "WarehouseManagement.Service.Contracts\WarehouseManagement.Services.Contracts.csproj", "{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Services.Contracts", "WarehouseManagement.Service.Contracts\WarehouseManagement.Services.Contracts.csproj", "{5B6C33E6-B887-4297-A56D-B0AD56D5AAC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Services", "WarehouseManagement.Services\WarehouseManagement.Services.csproj", "{92E75E3A-5A41-4417-A158-6974232D45EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagement.Services", "WarehouseManagement.Services\WarehouseManagement.Services.csproj", "{92E75E3A-5A41-4417-A158-6974232D45EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Services.Tests", "WarehouseManagement.Services.Tests\WarehouseManagement.Services.Tests.csproj", "{6DB9912A-9ACA-4E2A-8504-D27D72EA9ED9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{92E75E3A-5A41-4417-A158-6974232D45EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92E75E3A-5A41-4417-A158-6974232D45EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92E75E3A-5A41-4417-A158-6974232D45EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB9912A-9ACA-4E2A-8504-D27D72EA9ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB9912A-9ACA-4E2A-8504-D27D72EA9ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB9912A-9ACA-4E2A-8504-D27D72EA9ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB9912A-9ACA-4E2A-8504-D27D72EA9ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
