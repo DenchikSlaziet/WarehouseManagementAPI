@@ -6,6 +6,16 @@ using WarehouseManagement.Context.Contracts.Models;
 
 namespace WarehouseManagement.Context
 {
+    /// <summary>
+    /// Контекст работы с БД
+    /// </summary>
+    /// <remarks>
+    /// 1) dotnet tool install --global dotnet-ef --version 6.0.0
+    /// 2) dotnet tool update --global dotnet-ef
+    /// 3) dotnet ef migrations add [name] --project WarehouseManagement.Context\WarehouseManagement.Context.csproj
+    /// 4) dotnet ef database update --project WarehouseManagement.Context\WarehouseManagement.Context.csproj
+    /// 5) dotnet ef database update [targetMigrationName] --WarehouseManagement.Context\WarehouseManagement.Context.csproj
+    /// </remarks>
     public class WarehouseManagementContext : DbContext,
         IWarehouseManagementContext,
         IDbRead,
