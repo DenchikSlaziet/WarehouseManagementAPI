@@ -6,7 +6,7 @@ namespace WarehouseManagement.Services.Validators
     /// <summary>
     /// Валидатор <<see cref="ProductModel"/>
     /// </summary>
-    internal class ProductModelValidator : AbstractValidator<ProductModel>
+    public class ProductModelValidator : AbstractValidator<ProductModel>
     {
         public ProductModelValidator()
         {

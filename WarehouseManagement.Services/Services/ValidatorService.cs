@@ -9,7 +9,7 @@ using WarehouseManagement.Services.Validators;
 
 namespace WarehouseManagement.Services.Services
 {
-    internal sealed class ValidatorService : IServiceValidator
+    public sealed class ValidatorService : IServiceValidator
     {
         private readonly Dictionary<Type, IValidator> validators = new Dictionary<Type, IValidator>();
 
@@ -17,7 +17,7 @@ namespace WarehouseManagement.Services.Services
             IWarehouseUnitReadRepository warehouseUnitReadRepository)
         {
             validators.Add(typeof(ProductModel), new ProductModelValidator());
-            validators.Add(typeof(WarehouseModel), new WarehouseRequestModelValidator(warehouseUnitReadRepository));
+            validators.Add(typeof(WarehouseModelRequest), new WarehouseRequestModelValidator(warehouseUnitReadRepository));
             validators.Add(typeof(WarehouseUnitModelRequest), new WarehouseUnitRequestModelValidator(productReadRepository));           
         }
 

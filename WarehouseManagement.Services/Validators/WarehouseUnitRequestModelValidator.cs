@@ -7,7 +7,7 @@ namespace WarehouseManagement.Services.Validators
     /// <summary>
     /// Валидатор <<see cref="WarehouseUnitModelRequest"/>
     /// </summary>
-    internal class WarehouseUnitRequestModelValidator : AbstractValidator<WarehouseUnitModelRequest>
+    public class WarehouseUnitRequestModelValidator : AbstractValidator<WarehouseUnitModelRequest>
     {
         private readonly IProductReadRepository productReadRepository;
 
