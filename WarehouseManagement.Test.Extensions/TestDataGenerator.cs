@@ -1,4 +1,6 @@
 ﻿using WarehouseManagement.Context.Contracts.Models;
+using WarehouseManagement.Services.Contracts.Models;
+using WarehouseManagement.Services.Contracts.ModelsRequest;
 
 namespace WarehouseManagement.Test.Extensions
 {
@@ -53,6 +55,55 @@ namespace WarehouseManagement.Test.Extensions
                 Unit = string.Join("",Guid.NewGuid().ToString().Take(10))
             };
             result.BaseAuditSetParamtrs();
+
+            settings?.Invoke(result);
+            return result;
+        }
+
+        /// <summary>
+        /// Возвращает заполненную модель товара
+        /// </summary>
+        static public ProductModel ProductModel(Action<ProductModel>? settings = null)
+        {
+            var result = new ProductModel
+            {
+                Id = Guid.NewGuid(),
+                Title = $"{Guid.NewGuid():N}",
+                Description = $"{Guid.NewGuid():N}"
+            };
+
+            settings?.Invoke(result);
+            return result;
+        }
+
+        /// <summary>
+        /// Возвращает заполненную модель склада (по дефолту без привязки)
+        /// </summary>
+        static public WarehouseModelRequest WarehouseModelRequest(Action<WarehouseModelRequest>? settings = null)
+        {
+            var result = new WarehouseModelRequest
+            {
+                Id = Guid.NewGuid(),
+                Title = $"{Guid.NewGuid():N}",
+                Address = $"{Guid.NewGuid():N}"
+            };
+
+            settings?.Invoke(result);
+            return result;
+        }
+
+        /// <summary>
+        /// Возвращает заполненную модель единицы складского учета (по дефолту без привязки)
+        /// </summary>
+        static public WarehouseUnitModelRequest WarehouseUnitModelRequest(Action<WarehouseUnitModelRequest>? settings = null)
+        {
+            var result = new WarehouseUnitModelRequest
+            {
+                Id = Guid.NewGuid(),
+                Count = random.Next(1, 1000),
+                Price = random.Next(100, 10000),
+                Unit = string.Join("", Guid.NewGuid().ToString().Take(10))
+            };
 
             settings?.Invoke(result);
             return result;
