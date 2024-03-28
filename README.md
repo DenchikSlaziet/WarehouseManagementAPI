@@ -15,14 +15,17 @@
     WarehouseWarehouseUnit <.. WarehouseUnit
     WarehouseWarehouseUnit <.. Warehouse
     class Product {
+        +Guid Id
         +string Title
         +string? Description
     }
     class Warehouse {
+        +Guid Id
         +string Title
         +string Address
     }
     class WarehouseUnit {
+        +Guid Id
         +Guid ProductId
         +string Unit
         +int Count
