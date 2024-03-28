@@ -18,5 +18,26 @@ namespace WarehouseManagement.Context.Contracts.Models
         /// </summary>
         public Guid WarehouseUnitId { get; set; }
         public WarehouseUnit WarehouseUnit { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            if(obj == null)
+            {
+                return false;
+            }
+
+            if(obj is WarehouseWarehouseUnit warehouse)
+            {
+                return warehouse.WarehouseUnitId.Equals(WarehouseUnitId) &&
+                    warehouse.WarehouseId.Equals(WarehouseId);
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return WarehouseId.GetHashCode() + WarehouseUnitId.GetHashCode();
+        }
     }
 }

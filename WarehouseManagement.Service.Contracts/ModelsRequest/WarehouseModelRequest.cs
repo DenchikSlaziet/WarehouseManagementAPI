@@ -1,9 +1,8 @@
-﻿namespace WarehouseManagement.Services.Contracts.Models
+﻿using WarehouseManagement.Services.Contracts.Models;
+
+namespace WarehouseManagement.Services.Contracts.ModelsRequest
 {
-    /// <summary>
-    /// Модель склада
-    /// </summary>
-    public class WarehouseModel
+    public class WarehouseModelRequest
     {
         /// <summary>
         /// Идентификатор
@@ -21,8 +20,8 @@
         public string Address { get; set; } = string.Empty;
 
         /// <summary>
-        /// SKU на складе
+        /// Идентификаторы SKU на складе
         /// </summary>
-        public IEnumerable<WarehouseUnitModel> WarehouseUnitModels { get; set; }
+        public IEnumerable<Guid> WarehouseUnitModelIds { get; set; }
     }
 }

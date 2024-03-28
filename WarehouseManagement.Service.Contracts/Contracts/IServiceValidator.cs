@@ -3,7 +3,7 @@
     /// <summary>
     /// Сервис валидации
     /// </summary>
-    public interface IServiceValidatorService
+    public interface IServiceValidator
     {
         /// <summary>
         /// Валидирует модель
