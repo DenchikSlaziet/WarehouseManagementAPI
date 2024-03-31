@@ -1,4 +1,4 @@
-﻿namespace WarehouseManagement.Services.Contracts.Anchors
+﻿namespace WarehouseManagement.Services.Anchors
 {
     /// <summary>
     /// Маркерный интерфейс для регистрации сервисов

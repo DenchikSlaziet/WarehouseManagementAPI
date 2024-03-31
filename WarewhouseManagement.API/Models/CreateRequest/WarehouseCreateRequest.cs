@@ -1,12 +1,10 @@
-﻿namespace WarehouseManagement.Services.Contracts.ModelsRequest
+﻿namespace WarehouseManagement.API.Models.CreateRequest
 {
-    public class WarehouseModelRequest
+    /// <summary>
+    /// Модель запроса создания склада
+    /// </summary>
+    public class WarehouseCreateRequest
     {
-        /// <summary>
-        /// Идентификатор
-        /// </summary>
-        public Guid Id { get; set; }
-
         /// <summary>
         /// Название
         /// </summary>

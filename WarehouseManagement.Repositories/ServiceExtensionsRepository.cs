@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WarehouseManagement.General;
-using WarehouseManagement.Repositories.Contracts.Anchors;
+using WarehouseManagement.Repositories.Anchors;
 
 namespace WarehouseManagement.Repositories
 {
@@ -14,7 +14,7 @@ namespace WarehouseManagement.Repositories
         /// </summary>
         public static void RegistrationRepository(this IServiceCollection service)
         {
-            service.RegistrationOnInterface<IRepositoryAnchor>(ServiceLifetime.Scoped);
+            service.RegistrationOnInterface<IRepositoryAnchor>(ServiceLifetime.Scoped);      
         }
     }
 }

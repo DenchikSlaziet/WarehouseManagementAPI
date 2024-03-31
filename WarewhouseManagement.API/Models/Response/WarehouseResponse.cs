@@ -1,6 +1,9 @@
-﻿namespace WarehouseManagement.Services.Contracts.ModelsRequest
+﻿namespace WarehouseManagement.API.Models.Response
 {
-    public class WarehouseModelRequest
+    /// <summary>
+    /// Модель ответа склада
+    /// </summary>
+    public class WarehouseResponse
     {
         /// <summary>
         /// Идентификатор
@@ -18,8 +21,8 @@
         public string Address { get; set; } = string.Empty;
 
         /// <summary>
-        /// Идентификаторы SKU на складе
+        /// SKU на складе
         /// </summary>
-        public IEnumerable<Guid> WarehouseUnitModelIds { get; set; }
+        public IEnumerable<WarehouseUnitResponse> WarehouseUnitModels { get; set; }
     }
 }
