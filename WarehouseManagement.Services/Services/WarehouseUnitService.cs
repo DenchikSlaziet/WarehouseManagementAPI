@@ -3,7 +3,7 @@ using WarehouseManagement.Common.Entity.InterfaceToWorkDB;
 using WarehouseManagement.Context.Contracts.Models;
 using WarehouseManagement.Repositories.Contracts.ReadRepositories;
 using WarehouseManagement.Repositories.Contracts.WriteRepositories;
-using WarehouseManagement.Services.Contracts.Anchors;
+using WarehouseManagement.Services.Anchors;
 using WarehouseManagement.Services.Contracts.Contracts;
 using WarehouseManagement.Services.Contracts.Exceptions;
 using WarehouseManagement.Services.Contracts.Models;
@@ -11,6 +11,7 @@ using WarehouseManagement.Services.Contracts.ModelsRequest;
 
 namespace WarehouseManagement.Services.Services
 {
+    /// <inheritdoc cref="IWarehouseUnitService"/>
     public class WarehouseUnitService : IWarehouseUnitService, IServiceAnchor
     {
         private readonly IWarehouseUnitReadRepository warehouseUnitReadRepository;

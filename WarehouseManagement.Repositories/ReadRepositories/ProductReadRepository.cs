@@ -2,7 +2,7 @@
 using WarehouseManagement.Common.Entity.InterfaceToWorkDB;
 using WarehouseManagement.Context.Contracts.Models;
 using WarehouseManagement.General;
-using WarehouseManagement.Repositories.Contracts.Anchors;
+using WarehouseManagement.Repositories.Anchors;
 using WarehouseManagement.Repositories.Contracts.ReadRepositories;
 
 namespace WarehouseManagement.Repositories.ReadRepositories

@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using System.IO;
 using WarehouseManagement.Common.Entity.InterfaceToWorkDB;
 using WarehouseManagement.Context.Contracts.Models;
 using WarehouseManagement.Repositories.Contracts.ReadRepositories;
 using WarehouseManagement.Repositories.Contracts.WriteRepositories;
-using WarehouseManagement.Services.Contracts.Anchors;
+using WarehouseManagement.Services.Anchors;
 using WarehouseManagement.Services.Contracts.Contracts;
 using WarehouseManagement.Services.Contracts.Exceptions;
 using WarehouseManagement.Services.Contracts.Models;

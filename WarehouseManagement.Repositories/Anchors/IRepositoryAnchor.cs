@@ -1,4 +1,4 @@
-﻿namespace WarehouseManagement.Repositories.Contracts.Anchors
+﻿namespace WarehouseManagement.Repositories.Anchors
 {
     /// <summary>
     /// Маркерный интерфейс для регистрации репозиториев
