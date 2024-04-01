@@ -11,8 +11,8 @@ builder.Services.RegistrationControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.RegistrationSwagger();
 
-//builder.Services.AddDbContextFactory<WarehouseManagementContext>(options
-    //=> options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
+builder.Services.AddDbContextFactory<WarehouseManagementContext>(options
+    => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
 
 builder.Services.RegistrationSRC();
 
