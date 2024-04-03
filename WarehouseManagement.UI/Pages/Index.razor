@@ -1,0 +1,133 @@
+﻿@page "/"
+@using MyNamespace;
+@using WarehouseManagement.Services.Contracts.Models;
+
+
+<h1>Тест</h1>
+@if (warehouses.Count != 0)
+{
+    <p>
+        Склады:<br />
+        <select @oninput="OnChangeWarehouseId">
+            @foreach (var warehous in warehouses)
+            {
+                <option value="@warehous.Id">@warehous.Title</option>
+            }
+        </select>   
+    </p>
+}
+else
+{
+    <p style="color:black;"><em>@messageWarehouse</em></p>
+}
+
+@if (warehouseUnitResponses.Count != 0)
+{
+    <table>
+        <thead><tr><th>Название продукта</th><th>Ед. измерения</th><th>Кол-во</th><th>Цена(руб.)</th></tr></thead>
+        <tbody>
+            @foreach (var warehouseUnit in warehouseUnitResponses)
+            {
+                <tr>
+                    <td>@warehouseUnit.Product.Title</td>
+                    <td>@warehouseUnit.Unit</td>
+                    <td>
+                        <button @onclick="async () => await CountRemove(warehouseUnit)">-</button>                    
+                        @warehouseUnit.Count
+                        <button @onclick="async () => await CountAdd(warehouseUnit)">+</button>
+                    </td>
+                    <td>@warehouseUnit.Price</td>
+                </tr>
+            }       
+        </tbody>
+    </table>
+}
+else
+{
+    <p style="color:black;"><em>@messageWarehouseUnit</em></p>
+}
+
+    @code 
+{
+    private CancellationTokenSource cts = new();
+    private ProductClient productClient { get; set; }
+    private WarehouseClient warehouseClient { get; set; }
+    private WarehouseUnitClient warehouseUnitClient { get; set; }
+
+    private List<WarehouseUnitResponse> warehouseUnitResponses = new List<WarehouseUnitResponse>();
+    private List<WarehouseResponse> warehouses = new List<WarehouseResponse>();
+    private string messageWarehouse = "Загрузка . . .";
+    private string messageWarehouseUnit = "Товаров не найдено!";
+
+    protected override async Task OnInitializedAsync()
+    {       
+        var httpClient = new HttpClient();
+        productClient = new ProductClient(httpClient);
+        warehouseClient = new WarehouseClient(httpClient);
+        warehouseUnitClient = new WarehouseUnitClient(httpClient);
+        await LoadData();
+    }
+
+    async Task LoadData()
+    {      
+        warehouses = (await warehouseClient.GetAllAsync(cts.Token)).ToList();
+
+        if (warehouses.Count == 0)
+        {
+            messageWarehouse = "Складов не найдено!";
+        }
+        else
+        {
+            warehouseUnitResponses = warehouses[0].WarehouseUnitModels.ToList();
+        }
+    }    
+
+    async Task CountRemove(WarehouseUnitResponse warehouseUnitResponse)
+    {
+        if (warehouseUnitResponse.Count != 1)
+        {
+            var warehouseUnitRequest = new WarehouseUnitRequest
+                {
+                    Id = warehouseUnitResponse.Id,
+                    Count = --warehouseUnitResponse.Count,
+                    Price = warehouseUnitResponse.Price,
+                    ProductId = warehouseUnitResponse.Product.Id,
+                    Unit = warehouseUnitResponse.Unit
+            };
+
+            await warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token);
+        }
+    }
+
+    async Task CountAdd(WarehouseUnitResponse warehouseUnitResponse)
+    {
+        if (warehouseUnitResponse.Count != int.MaxValue)
+        {
+            var warehouseUnitRequest = new WarehouseUnitRequest
+                {
+                    Id = warehouseUnitResponse.Id,
+                    Count = ++warehouseUnitResponse.Count,
+                    Price = warehouseUnitResponse.Price,
+                    ProductId = warehouseUnitResponse.Product.Id,
+                    Unit = warehouseUnitResponse.Unit
+            };
+
+            await warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token);
+        }
+    }
+
+    private async Task OnChangeWarehouseId(ChangeEventArgs e)
+    {
+        if (e.Value != null)
+        {
+            var id = Guid.Parse(e.Value.ToString());
+            var warehouse = await warehouseClient.GetByIdAsync(id, cts.Token);
+
+            if (warehouse != null)
+            {
+                warehouseUnitResponses = new List<WarehouseUnitResponse>(warehouse.WarehouseUnitModels);
+                StateHasChanged();
+            }
+        }
+    }  
+    }
