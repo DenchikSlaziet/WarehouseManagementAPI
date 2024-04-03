@@ -89,7 +89,10 @@ namespace WarehouseManagement.Services.Services
 
             await serviceValidator.ValidateAsync(modelRequest, cancellationToken);
 
+            var times = new { targetWarehouse.CreatedAt, targetWarehouse.CreatedBy };
             targetWarehouse = mapper.Map<Warehouse>(modelRequest);
+            targetWarehouse.CreatedBy = times.CreatedBy;
+            targetWarehouse.CreatedAt = times.CreatedAt;
 
             warehouseWriteRepository.Update(targetWarehouse);
 

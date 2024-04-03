@@ -17,7 +17,7 @@ namespace WarehouseManagement.Services.Mappers
             CreateMap<WarehouseUnit, WarehouseUnitModel>(MemberList.Destination)
                 .ForMember(x => x.Product, opt => opt.Ignore()).ReverseMap();
           
-            CreateMap<WarehouseModelRequest, Warehouse>(MemberList.Destination)
+            CreateMap<WarehouseModelRequest, Warehouse>(MemberList.Source)
                 .ForMember(x => x.WarehouseWarehouseUnits, opt => opt.Ignore())
                 .ForMember(x => x.CreatedAt, opt => opt.Ignore())
                 .ForMember(x => x.DeletedAt, opt => opt.Ignore())

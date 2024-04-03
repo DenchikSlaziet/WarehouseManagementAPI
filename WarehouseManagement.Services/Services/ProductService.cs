@@ -66,7 +66,10 @@ namespace WarehouseManagement.Services.Services
                 throw new WarehouseManagmentEntityNotFoundException<Product>(model.Id);
             }
 
+            var times = new { targetProduct.CreatedAt, targetProduct.CreatedBy };
             targetProduct = mapper.Map<Product>(model);
+            targetProduct.CreatedAt = times.CreatedAt;
+            targetProduct.CreatedBy = times.CreatedBy;
 
             productWriteRepository.Update(targetProduct);
             await unitOfWork.SaveChangesAsync(cancellationToken);
