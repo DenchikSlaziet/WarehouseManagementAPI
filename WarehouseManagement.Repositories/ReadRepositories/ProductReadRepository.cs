@@ -15,32 +15,32 @@ namespace WarehouseManagement.Repositories.ReadRepositories
         /// <summary>
         /// Контекст для работы с БД
         /// </summary>
-        private readonly IDbRead reader;
+        private readonly IDbRead _reader;
 
         public ProductReadRepository(IDbRead reader)
         {
-            this.reader = reader;
+            _reader = reader;
         }
 
         Task<IReadOnlyCollection<Product>> IProductReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => reader.Read<Product>()
+            => _reader.Read<Product>()
             .NotDeletedAt()
             .OrderBy(x => x.Title)
             .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Product?> IProductReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => reader.Read<Product>()
+            => _reader.Read<Product>()
             .ById(id)
             .NotDeletedAt().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
         Task<Dictionary<Guid, Product>> IProductReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-            => reader.Read<Product>()
+            => _reader.Read<Product>()
             .NotDeletedAt()
             .ByIds(ids)
             .ToDictionaryAsync(x => x.Id, cancellationToken);
 
         Task<bool> IProductReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
-            => reader.Read<Product>()
+            => _reader.Read<Product>()
             .NotDeletedAt()
             .AnyAsync(x => x.Id == id, cancellationToken);
     }

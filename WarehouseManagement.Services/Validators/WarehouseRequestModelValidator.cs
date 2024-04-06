@@ -9,11 +9,11 @@ namespace WarehouseManagement.Services.Validators
     /// </summary>
     public class WarehouseRequestModelValidator : AbstractValidator<WarehouseModelRequest>
     {
-        private readonly IWarehouseUnitReadRepository warehouseUnitReadRepository;
+        private readonly IWarehouseUnitReadRepository _warehouseUnitReadRepository;
 
         public WarehouseRequestModelValidator(IWarehouseUnitReadRepository warehouseUnitReadRepository)
         {
-            this.warehouseUnitReadRepository = warehouseUnitReadRepository;
+            _warehouseUnitReadRepository = warehouseUnitReadRepository;
 
             RuleFor(x => x.Title).NotEmpty().WithMessage(MessageForValidation.DefaultMessage)
                .NotNull().WithMessage(MessageForValidation.DefaultMessage)
@@ -27,7 +27,7 @@ namespace WarehouseManagement.Services.Validators
                 .NotNull().WithMessage(MessageForValidation.DefaultMessage);
 
             RuleForEach(x => x.WarehouseUnitModelIds)                
-                .MustAsync(async (x, cancellationToken) => await this.warehouseUnitReadRepository.IsNotNullAsync(x, cancellationToken))
+                .MustAsync(async (x, cancellationToken) => await _warehouseUnitReadRepository.IsNotNullAsync(x, cancellationToken))
                 .WithMessage(MessageForValidation.NotFoundGuidMessage);
         }
     }

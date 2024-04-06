@@ -15,13 +15,13 @@ namespace WarehouseManagement.API.Controllers
     [ApiExplorerSettings(GroupName = "WarehouseUnit")]
     public class WarehouseUnitController : ControllerBase
     {
-        private readonly IWarehouseUnitService warehouseUnitService;
-        private readonly IMapper mapper;
+        private readonly IWarehouseUnitService _warehouseUnitService;
+        private readonly IMapper _mapper;
 
         public WarehouseUnitController(IWarehouseUnitService warehouseUnitService, IMapper mapper)
         {
-            this.mapper = mapper;
-            this.warehouseUnitService = warehouseUnitService;
+            _mapper = mapper;
+            _warehouseUnitService = warehouseUnitService;
         }
 
         /// <summary>
@@ -31,8 +31,8 @@ namespace WarehouseManagement.API.Controllers
         [ProducesResponseType(typeof(ICollection<WarehouseUnitResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            var result = await warehouseUnitService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => mapper.Map<WarehouseUnitResponse>(x)));
+            var result = await _warehouseUnitService.GetAllAsync(cancellationToken);
+            return Ok(result.Select(x => _mapper.Map<WarehouseUnitResponse>(x)));
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace WarehouseManagement.API.Controllers
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status417ExpectationFailed)]
         public async Task<IActionResult> GetById([Required] Guid id, CancellationToken cancellationToken)
         {
-            var item = await warehouseUnitService.GetByIdAsync(id, cancellationToken);
-            return Ok(mapper.Map<WarehouseUnitResponse>(item));
+            var item = await _warehouseUnitService.GetByIdAsync(id, cancellationToken);
+            return Ok(_mapper.Map<WarehouseUnitResponse>(item));
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace WarehouseManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Add(WarehouseUnitCreateRequest model, CancellationToken cancellationToken)
         {
-            var warehouseUnitModel = mapper.Map<WarehouseUnitModelRequest>(model);
-            var result = await warehouseUnitService.AddAsync(warehouseUnitModel, cancellationToken);
-            return Ok(mapper.Map<WarehouseUnitResponse>(result));
+            var warehouseUnitModel = _mapper.Map<WarehouseUnitModelRequest>(model);
+            var result = await _warehouseUnitService.AddAsync(warehouseUnitModel, cancellationToken);
+            return Ok(_mapper.Map<WarehouseUnitResponse>(result));
         }
 
         /// <summary>
@@ -74,9 +74,9 @@ namespace WarehouseManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Edit(WarehouseUnitRequest request, CancellationToken cancellationToken)
         {
-            var model = mapper.Map<WarehouseUnitModelRequest>(request);
-            var result = await warehouseUnitService.EditAsync(model, cancellationToken);
-            return Ok(mapper.Map<WarehouseUnitResponse>(result));
+            var model = _mapper.Map<WarehouseUnitModelRequest>(request);
+            var result = await _warehouseUnitService.EditAsync(model, cancellationToken);
+            return Ok(_mapper.Map<WarehouseUnitResponse>(result));
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace WarehouseManagement.API.Controllers
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status417ExpectationFailed)]
         public async Task<IActionResult> Delete([Required] Guid id, CancellationToken cancellationToken)
         {
-            await warehouseUnitService.DeleteAsync(id, cancellationToken);
+            await _warehouseUnitService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }

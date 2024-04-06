@@ -14,13 +14,13 @@ namespace WarehouseManagement.Services.Services
     /// <inheritdoc cref="IWarehouseService"/>
     public class WarehouseService : IWarehouseService, IServiceAnchor
     {
-        private readonly IWarehouseReadRepository warehouseReadRepository;
-        private readonly IProductReadRepository productReadRepository;
-        private readonly IWarehouseWriteRepository warehouseWriteRepository;
-        private readonly IWarehouseWarehouseUnitWriteRepository warehouseWarehouseUnitWriteRepository;
-        private readonly IMapper mapper;
-        private readonly IServiceValidator serviceValidator;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IWarehouseReadRepository _warehouseReadRepository;
+        private readonly IProductReadRepository _productReadRepository;
+        private readonly IWarehouseWriteRepository _warehouseWriteRepository;
+        private readonly IWarehouseWarehouseUnitWriteRepository _warehouseWarehouseUnitWriteRepository;
+        private readonly IMapper _mapper;
+        private readonly IServiceValidator _serviceValidator;
+        private readonly IUnitOfWork _unitOfWork;
 
         public WarehouseService(IWarehouseReadRepository warehouseReadRepository, 
             IWarehouseWriteRepository warehouseWriteRepository, IMapper mapper,
@@ -28,24 +28,24 @@ namespace WarehouseManagement.Services.Services
             IWarehouseWarehouseUnitWriteRepository warehouseWarehouseUnitWriteRepository,
             IProductReadRepository productReadRepository)
         {
-            this.warehouseReadRepository = warehouseReadRepository;
-            this.warehouseWriteRepository = warehouseWriteRepository;
-            this.mapper = mapper;
-            this.serviceValidator = serviceValidator;
-            this.unitOfWork = unitOfWork;
-            this.warehouseWarehouseUnitWriteRepository = warehouseWarehouseUnitWriteRepository;
-            this.productReadRepository = productReadRepository;
+            _warehouseReadRepository = warehouseReadRepository;
+            _warehouseWriteRepository = warehouseWriteRepository;
+            _mapper = mapper;
+            _serviceValidator = serviceValidator;
+            _unitOfWork = unitOfWork;
+            _warehouseWarehouseUnitWriteRepository = warehouseWarehouseUnitWriteRepository;
+            _productReadRepository = productReadRepository;
         }
 
         async Task<WarehouseModel> IWarehouseService.AddAsync(WarehouseModelRequest modelRequest, CancellationToken cancellationToken)
         {           
-            await serviceValidator.ValidateAsync(modelRequest, cancellationToken);
+            await _serviceValidator.ValidateAsync(modelRequest, cancellationToken);
 
             modelRequest.Id = Guid.NewGuid();
 
-            var warehouse = mapper.Map<Warehouse>(modelRequest);
+            var warehouse = _mapper.Map<Warehouse>(modelRequest);
 
-            warehouseWriteRepository.Add(warehouse);
+            _warehouseWriteRepository.Add(warehouse);
 
             foreach (var id in modelRequest.WarehouseUnitModelIds)
             {
@@ -55,10 +55,10 @@ namespace WarehouseManagement.Services.Services
                     WarehouseUnitId = id
                 };
 
-                warehouseWarehouseUnitWriteRepository.Add(warehouseWarehouseUnit);
+                _warehouseWarehouseUnitWriteRepository.Add(warehouseWarehouseUnit);
             }
 
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             var warehouseModel = await GetWarehouseModelInWarehouseAsync(warehouse, cancellationToken);
 
@@ -67,36 +67,36 @@ namespace WarehouseManagement.Services.Services
         
         async Task IWarehouseService.DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var warehouse = await warehouseReadRepository.GetByIdAsync(id, cancellationToken);
+            var warehouse = await _warehouseReadRepository.GetByIdAsync(id, cancellationToken);
 
             if (warehouse == null)
             {
                 throw new WarehouseManagmentEntityNotFoundException<Warehouse>(id);
             }
 
-            warehouseWriteRepository.Delete(warehouse);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            _warehouseWriteRepository.Delete(warehouse);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         async Task<WarehouseModel> IWarehouseService.EditAsync(WarehouseModelRequest modelRequest, CancellationToken cancellationToken)
         {
-            var targetWarehouse = await warehouseReadRepository.GetByIdAsync(modelRequest.Id, cancellationToken);
+            var targetWarehouse = await _warehouseReadRepository.GetByIdAsync(modelRequest.Id, cancellationToken);
 
             if(targetWarehouse == null)
             {
                 throw new WarehouseManagmentEntityNotFoundException<Warehouse>(modelRequest.Id);
             }
 
-            await serviceValidator.ValidateAsync(modelRequest, cancellationToken);
+            await _serviceValidator.ValidateAsync(modelRequest, cancellationToken);
 
             var times = new { targetWarehouse.CreatedAt, targetWarehouse.CreatedBy };
-            targetWarehouse = mapper.Map<Warehouse>(modelRequest);
+            targetWarehouse = _mapper.Map<Warehouse>(modelRequest);
             targetWarehouse.CreatedBy = times.CreatedBy;
             targetWarehouse.CreatedAt = times.CreatedAt;
 
-            warehouseWriteRepository.Update(targetWarehouse);
+            _warehouseWriteRepository.Update(targetWarehouse);
 
-            var oldWarehouseWarehouseUnits = await warehouseReadRepository
+            var oldWarehouseWarehouseUnits = await _warehouseReadRepository
                 .GetDependenceEntityByWarehouseId(targetWarehouse.Id, cancellationToken);
             var newWarehouseWarehouseUnits = modelRequest.WarehouseUnitModelIds.
                 Select(x => new WarehouseWarehouseUnit
@@ -106,10 +106,10 @@ namespace WarehouseManagement.Services.Services
                 });
 
             oldWarehouseWarehouseUnits.Except(newWarehouseWarehouseUnits).ToList()
-                .ForEach(x => warehouseWarehouseUnitWriteRepository.Delete(x));
+                .ForEach(x => _warehouseWarehouseUnitWriteRepository.Delete(x));
             newWarehouseWarehouseUnits.Except(oldWarehouseWarehouseUnits).ToList()
-                .ForEach(x => warehouseWarehouseUnitWriteRepository.Add(x));
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+                .ForEach(x => _warehouseWarehouseUnitWriteRepository.Add(x));
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             var warehouseModel = await GetWarehouseModelInWarehouseAsync(targetWarehouse, cancellationToken);
 
@@ -118,7 +118,7 @@ namespace WarehouseManagement.Services.Services
 
         async Task<IEnumerable<WarehouseModel>> IWarehouseService.GetAllAsync(CancellationToken cancellationToken)
         {
-            var warehouses = await warehouseReadRepository.GetAllAsync(cancellationToken);
+            var warehouses = await _warehouseReadRepository.GetAllAsync(cancellationToken);
             var warehouseModels = new List<WarehouseModel>(warehouses.Count);
 
             foreach (var warehouse in warehouses)
@@ -133,7 +133,7 @@ namespace WarehouseManagement.Services.Services
         
         async Task<WarehouseModel?> IWarehouseService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var warehouse = await warehouseReadRepository.GetByIdAsync(id, cancellationToken);
+            var warehouse = await _warehouseReadRepository.GetByIdAsync(id, cancellationToken);
 
             if(warehouse == null)
             {
@@ -147,9 +147,9 @@ namespace WarehouseManagement.Services.Services
 
         async private Task<WarehouseModel> GetWarehouseModelInWarehouseAsync(Warehouse warehouse, CancellationToken cancellationToken)
         {
-            var warehouseModel = mapper.Map<WarehouseModel>(warehouse);
-            var warehouseUnits = await warehouseReadRepository.GetWarehouseUnitByWarehouseId(warehouse.Id, cancellationToken);
-            var productsIds = await productReadRepository.GetByIdsAsync(warehouseUnits
+            var warehouseModel = _mapper.Map<WarehouseModel>(warehouse);
+            var warehouseUnits = await _warehouseReadRepository.GetWarehouseUnitByWarehouseId(warehouse.Id, cancellationToken);
+            var productsIds = await _productReadRepository.GetByIdsAsync(warehouseUnits
                 .Select(x => x.ProductId).Distinct(), cancellationToken);
             var warehouseUnitModels = new List<WarehouseUnitModel>(warehouseUnits.Count);
 
@@ -157,8 +157,8 @@ namespace WarehouseManagement.Services.Services
             {
                 if (productsIds.TryGetValue(warehouseUnit.ProductId, out var product))
                 {
-                    var warehouseUnitModel = mapper.Map<WarehouseUnitModel>(warehouseUnit);
-                    warehouseUnitModel.Product = mapper.Map<ProductModel>(product);
+                    var warehouseUnitModel = _mapper.Map<WarehouseUnitModel>(warehouseUnit);
+                    warehouseUnitModel.Product = _mapper.Map<ProductModel>(product);
 
                     warehouseUnitModels.Add(warehouseUnitModel);
                 }

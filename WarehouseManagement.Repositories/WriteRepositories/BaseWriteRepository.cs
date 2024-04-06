@@ -12,14 +12,14 @@ namespace WarehouseManagement.Repositories.WriteRepositories
     public abstract class BaseWriteRepository<T> : IRepositoryWriter<T> where T : class, IEntity
     {
         /// <inheritdoc cref="IDbWriterContext"/>
-        private readonly IDbWriterContext writerContext;
+        private readonly IDbWriterContext _writerContext;
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="BaseWriteRepository{T}"/>
         /// </summary>
         protected BaseWriteRepository(IDbWriterContext writerContext)
         {
-            this.writerContext = writerContext;
+            _writerContext = writerContext;
         }
 
         /// <inheritdoc cref="IRepositoryWriter{T}"/>
@@ -32,14 +32,14 @@ namespace WarehouseManagement.Repositories.WriteRepositories
             }
             AuditForCreate(entity);
             AuditForUpdate(entity);
-            writerContext.Writer.Add(entity);
+            _writerContext.Writer.Add(entity);
         }
 
         /// <inheritdoc cref="IRepositoryWriter{T}"/>
         public void Update([NotNull] T entity)
         {
             AuditForUpdate(entity);
-            writerContext.Writer.Update(entity);
+            _writerContext.Writer.Update(entity);
         }
 
         /// <inheritdoc cref="IRepositoryWriter{T}"/>
@@ -49,11 +49,11 @@ namespace WarehouseManagement.Repositories.WriteRepositories
             AuditForDelete(entity);
             if (entity is IEntityAuditDeleted)
             {
-                writerContext.Writer.Update(entity);
+                _writerContext.Writer.Update(entity);
             }
             else
             {
-                writerContext.Writer.Delete(entity);
+                _writerContext.Writer.Delete(entity);
             }
         }
 
@@ -61,8 +61,8 @@ namespace WarehouseManagement.Repositories.WriteRepositories
         {
             if (entity is IEntityAuditCreated auditCreated)
             {
-                auditCreated.CreatedAt = writerContext.DateTimeProvider.UtcNow;
-                auditCreated.CreatedBy = writerContext.UserName;
+                auditCreated.CreatedAt = _writerContext.DateTimeProvider.UtcNow;
+                auditCreated.CreatedBy = _writerContext.UserName;
             }
         }
 
@@ -70,8 +70,8 @@ namespace WarehouseManagement.Repositories.WriteRepositories
         {
             if (entity is IEntityAuditUpdated auditUpdate)
             {
-                auditUpdate.UpdatedAt = writerContext.DateTimeProvider.UtcNow;
-                auditUpdate.UpdatedBy = writerContext.UserName;
+                auditUpdate.UpdatedAt = _writerContext.DateTimeProvider.UtcNow;
+                auditUpdate.UpdatedBy = _writerContext.UserName;
             }
         }
 
@@ -79,7 +79,7 @@ namespace WarehouseManagement.Repositories.WriteRepositories
         {
             if (entity is IEntityAuditDeleted auditDeleted)
             {
-                auditDeleted.DeletedAt = writerContext.DateTimeProvider.UtcNow;
+                auditDeleted.DeletedAt = _writerContext.DateTimeProvider.UtcNow;
             }
         }
     }

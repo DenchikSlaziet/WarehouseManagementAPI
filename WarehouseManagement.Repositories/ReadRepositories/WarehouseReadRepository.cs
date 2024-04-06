@@ -15,45 +15,45 @@ namespace WarehouseManagement.Repositories.ReadRepositories
         /// <summary>
         /// Контекст для работы с БД
         /// </summary>
-        private readonly IDbRead reader;
+        private readonly IDbRead _reader;
 
         public WarehouseReadRepository(IDbRead reader)
         {
-            this.reader = reader;
+            _reader = reader;
         }
 
         Task<IReadOnlyCollection<Warehouse>> IWarehouseReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => reader.Read<Warehouse>()
+            => _reader.Read<Warehouse>()
             .NotDeletedAt()
             .OrderBy(x => x.Title)
             .ThenBy(x => x.Address)
             .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Warehouse?> IWarehouseReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => reader.Read<Warehouse>()
+            => _reader.Read<Warehouse>()
             .NotDeletedAt()
             .ById(id)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
         Task<Dictionary<Guid, Warehouse>> IWarehouseReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-            => reader.Read<Warehouse>()
+            => _reader.Read<Warehouse>()
             .NotDeletedAt()
             .ByIds(ids)
             .ToDictionaryAsync(x => x.Id, cancellationToken);
 
         Task<IReadOnlyCollection<WarehouseUnit>> IWarehouseReadRepository.GetWarehouseUnitByWarehouseId(Guid id, CancellationToken cancellationToken)
-            => reader.Read<WarehouseUnit>()
+            => _reader.Read<WarehouseUnit>()
             .NotDeletedAt()
             .Where(x => x.WarehouseWarehouseUnits.Any(x => x.WarehouseId == id))
             .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<IReadOnlyCollection<WarehouseWarehouseUnit>> IWarehouseReadRepository.GetDependenceEntityByWarehouseId(Guid id, CancellationToken cancellationToken)
-            => reader.Read<WarehouseWarehouseUnit>()            
+            => _reader.Read<WarehouseWarehouseUnit>()            
             .Where(x => x.WarehouseId == id)
             .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<bool> IWarehouseReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
-            => reader.Read<Warehouse>()
+            => _reader.Read<Warehouse>()
             .NotDeletedAt()
             .AnyAsync(x => x.Id == id, cancellationToken);
     }

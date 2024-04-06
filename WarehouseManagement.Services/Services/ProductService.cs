@@ -13,53 +13,53 @@ namespace WarehouseManagement.Services.Services
     /// <inheritdoc cref="IProductService"/>
     public class ProductService : IProductService, IServiceAnchor
     {
-        private readonly IProductReadRepository productReadRepository;
-        private readonly IProductWriteRepository productWriteRepository;
-        private readonly IMapper mapper;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IServiceValidator serviceValidator;
+        private readonly IProductReadRepository _productReadRepository;
+        private readonly IProductWriteRepository _productWriteRepository;
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IServiceValidator _serviceValidator;
 
         public ProductService(IProductReadRepository productReadRepository, 
             IProductWriteRepository productWriteRepository, IMapper mapper,
             IUnitOfWork unitOfWork, IServiceValidator serviceValidator)
         {
-            this.productWriteRepository = productWriteRepository;
-            this.productReadRepository = productReadRepository;
-            this.mapper = mapper;
-            this.unitOfWork = unitOfWork;
-            this.serviceValidator = serviceValidator;
+            _productWriteRepository = productWriteRepository;
+            _productReadRepository = productReadRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _serviceValidator = serviceValidator;
         }
 
         async Task<ProductModel> IProductService.AddAsync(ProductModel model, CancellationToken cancellationToken)
         {
-            await serviceValidator.ValidateAsync(model, cancellationToken);
+            await _serviceValidator.ValidateAsync(model, cancellationToken);
 
-            var product = mapper.Map<Product>(model);
+            var product = _mapper.Map<Product>(model);
 
-            productWriteRepository.Add(product);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            _productWriteRepository.Add(product);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return mapper.Map<ProductModel>(product);
+            return _mapper.Map<ProductModel>(product);
         }
 
         async Task IProductService.DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var product = await productReadRepository.GetByIdAsync(id, cancellationToken);
+            var product = await _productReadRepository.GetByIdAsync(id, cancellationToken);
 
             if (product == null)
             {
                 throw new WarehouseManagmentEntityNotFoundException<Product>(id);
             }
 
-            productWriteRepository.Delete(product);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            _productWriteRepository.Delete(product);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         async Task<ProductModel> IProductService.EditAsync(ProductModel model, CancellationToken cancellationToken)
         {
-            await serviceValidator.ValidateAsync(model, cancellationToken);
+            await _serviceValidator.ValidateAsync(model, cancellationToken);
 
-            var targetProduct = await productReadRepository.GetByIdAsync(model.Id, cancellationToken);
+            var targetProduct = await _productReadRepository.GetByIdAsync(model.Id, cancellationToken);
 
             if(targetProduct == null)
             {
@@ -67,33 +67,33 @@ namespace WarehouseManagement.Services.Services
             }
 
             var times = new { targetProduct.CreatedAt, targetProduct.CreatedBy };
-            targetProduct = mapper.Map<Product>(model);
+            targetProduct = _mapper.Map<Product>(model);
             targetProduct.CreatedAt = times.CreatedAt;
             targetProduct.CreatedBy = times.CreatedBy;
 
-            productWriteRepository.Update(targetProduct);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            _productWriteRepository.Update(targetProduct);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return mapper.Map<ProductModel>(targetProduct);
+            return _mapper.Map<ProductModel>(targetProduct);
         }
 
         async Task<IEnumerable<ProductModel>> IProductService.GetAllAsync(CancellationToken cancellationToken)
         {
-            var products = await productReadRepository.GetAllAsync(cancellationToken);
-            return products.Select(x => mapper.Map<ProductModel>(x));
+            var products = await _productReadRepository.GetAllAsync(cancellationToken);
+            return products.Select(x => _mapper.Map<ProductModel>(x));
 
         }
 
         async Task<ProductModel?> IProductService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var product = await productReadRepository.GetByIdAsync(id, cancellationToken);
+            var product = await _productReadRepository.GetByIdAsync(id, cancellationToken);
 
             if(product == null)
             {
                 throw new WarehouseManagmentEntityNotFoundException<Product>(id);
             }
 
-            return mapper.Map<ProductModel>(product);
+            return _mapper.Map<ProductModel>(product);
         }
     }
 }

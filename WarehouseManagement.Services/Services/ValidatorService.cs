@@ -11,14 +11,14 @@ namespace WarehouseManagement.Services.Services
 {
     public sealed class ValidatorService : IServiceValidator
     {
-        private readonly Dictionary<Type, IValidator> validators = new Dictionary<Type, IValidator>();
+        private readonly Dictionary<Type, IValidator> _validators = new Dictionary<Type, IValidator>();
 
         public ValidatorService(IProductReadRepository productReadRepository, 
             IWarehouseUnitReadRepository warehouseUnitReadRepository)
         {
-            validators.Add(typeof(ProductModel), new ProductModelValidator());
-            validators.Add(typeof(WarehouseModelRequest), new WarehouseRequestModelValidator(warehouseUnitReadRepository));
-            validators.Add(typeof(WarehouseUnitModelRequest), new WarehouseUnitRequestModelValidator(productReadRepository));           
+           _validators.Add(typeof(ProductModel), new ProductModelValidator());
+           _validators.Add(typeof(WarehouseModelRequest), new WarehouseRequestModelValidator(warehouseUnitReadRepository));
+           _validators.Add(typeof(WarehouseUnitModelRequest), new WarehouseUnitRequestModelValidator(productReadRepository));           
         }
 
         public async Task ValidateAsync<TModel>(TModel model, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ namespace WarehouseManagement.Services.Services
         {
             var typeModel = typeof(TModel);
 
-            if(!validators.TryGetValue(typeModel, out var validator))
+            if(!_validators.TryGetValue(typeModel, out var validator))
             {
                 throw new InvalidOperationException($"Не найден валидатор для модели {typeModel}");
             }
