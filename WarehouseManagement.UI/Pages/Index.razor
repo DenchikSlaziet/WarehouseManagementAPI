@@ -97,7 +97,7 @@ else
 
     int EditModel(Guid id, int count, int quantity)
     {
-        int newCount = count;
+        var newCount = count;
 
         lock (_locker)
         {
@@ -106,15 +106,22 @@ else
             if (warehouseUnit != null)
             {
                 var warehouseUnitRequest = new WarehouseUnitRequest
-                    {
-                        Id = warehouseUnit.Id,
-                        Count = (warehouseUnit.Count + quantity),
-                        Price = warehouseUnit.Price,
-                        ProductId = warehouseUnit.Product.Id,
-                        Unit = warehouseUnit.Unit
-                    };
+                {
+                    Id = warehouseUnit.Id,
+                    Count = (warehouseUnit.Count + quantity),
+                    Price = warehouseUnit.Price,
+                    ProductId = warehouseUnit.Product.Id,
+                    Unit = warehouseUnit.Unit
+                };
 
-                return warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token).Result.Count;
+                try
+                {
+                    newCount = warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token).Result.Count;
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
         }
 
