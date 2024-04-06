@@ -114,8 +114,7 @@ else
                         Unit = warehouseUnit.Unit
                     };
 
-                newCount = warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token).Result.Count;
-                return newCount;
+                return warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token).Result.Count;
             }
         }
 
