@@ -33,9 +33,9 @@ else
                     <td>@warehouseUnit.Product.Title</td>
                     <td>@warehouseUnit.Unit</td>
                     <td>
-                        <button @onclick="async () => await CountRemove(warehouseUnit)">-</button>                    
+                        <button @onclick="() => CountRemove(warehouseUnit)">-</button>                    
                         @warehouseUnit.Count
-                        <button @onclick="async () => await CountAdd(warehouseUnit)">+</button>
+                        <button @onclick="() => CountAdd(warehouseUnit)">+</button>
                     </td>
                     <td>@warehouseUnit.Price</td>
                 </tr>
@@ -51,6 +51,7 @@ else
     @code 
 {
     private CancellationTokenSource cts = new();
+    private object _locker = new();
     HttpClient httpClient = null!;
     private ProductClient productClient { get; set; }
     private WarehouseClient warehouseClient { get; set; }
@@ -84,38 +85,41 @@ else
         }
     }    
 
-    async Task CountRemove(WarehouseUnitResponse warehouseUnitResponse)
+    void CountRemove(WarehouseUnitResponse warehouseUnitResponse)
     {
-        if (warehouseUnitResponse.Count != 1)
-        {
-            var warehouseUnitRequest = new WarehouseUnitRequest
-                {
-                    Id = warehouseUnitResponse.Id,
-                    Count = --warehouseUnitResponse.Count,
-                    Price = warehouseUnitResponse.Price,
-                    ProductId = warehouseUnitResponse.Product.Id,
-                    Unit = warehouseUnitResponse.Unit
-            };
-
-            await warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token);
-        }
+        warehouseUnitResponse.Count = EditModel(warehouseUnitResponse.Id, warehouseUnitResponse.Count, -1);
     }
 
-    async Task CountAdd(WarehouseUnitResponse warehouseUnitResponse)
+    void CountAdd(WarehouseUnitResponse warehouseUnitResponse)
     {
-        if (warehouseUnitResponse.Count != int.MaxValue)
-        {
-            var warehouseUnitRequest = new WarehouseUnitRequest
-                {
-                    Id = warehouseUnitResponse.Id,
-                    Count = ++warehouseUnitResponse.Count,
-                    Price = warehouseUnitResponse.Price,
-                    ProductId = warehouseUnitResponse.Product.Id,
-                    Unit = warehouseUnitResponse.Unit
-            };
+        warehouseUnitResponse.Count = EditModel(warehouseUnitResponse.Id, warehouseUnitResponse.Count, 1);
+    }
 
-            await warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token);
+    int EditModel(Guid id, int count, int quantity)
+    {
+        int newCount = count;
+
+        lock (_locker)
+        {
+            var warehouseUnit = warehouseUnitClient.GetByIdAsync(id, cts.Token).Result;
+
+            if (warehouseUnit != null)
+            {
+                var warehouseUnitRequest = new WarehouseUnitRequest
+                    {
+                        Id = warehouseUnit.Id,
+                        Count = (warehouseUnit.Count + quantity),
+                        Price = warehouseUnit.Price,
+                        ProductId = warehouseUnit.Product.Id,
+                        Unit = warehouseUnit.Unit
+                    };
+
+                newCount = warehouseUnitClient.EditAsync(warehouseUnitRequest, cts.Token).Result.Count;
+                return newCount;
+            }
         }
+
+        return newCount;
     }
 
     private async Task OnChangeWarehouseId(ChangeEventArgs e)
